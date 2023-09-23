@@ -8,25 +8,15 @@ library(statnet)
 
 
 
-D0<-read.csv('Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
-#D0<-read.csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
-
-
-#D0<-read.csv('C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
-
+D0<-read.csv('County_VaccinationsAA.csv')
 names(D0)
 head(D0) 
-
 length(unique(D0$STATE))
 
 
 
 ################ 18 #####################################
-
-
-#A0<-read.csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean.csv')
-
-A0<-read.csv('Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean.csv')
+A0<-read.csv('edlist_18_Dist_V2_aboveMean.csv')
 
 
 G01<-graph_from_edgelist(as.matrix(A0))
