@@ -2,15 +2,9 @@
 library(igraph) 
 
 library(ggplot2)
-
-
-D0<-read.csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
-
-D0<-read.csv('C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
-
+D0<-read.csv('County_VaccinationsAA.csv')
 names(D0)
 head(D0) 
-
 length(unique(D0$STATE))
 
 
@@ -100,7 +94,7 @@ dim(A2)
 
 
 ### AM- Adjacency Matrix  for nodetvec ################
-#write.csv(A2,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/AM_18_Dist_V2_DM75.csv')
+#write.csv(A2,'AM_18_Dist_V2_DM75.csv')
 
 
 
@@ -138,7 +132,7 @@ edge_density(G0, loops=F) # 0.00236921
 edlist_18_Dist<-cbind(get.edgelist(G0))
 
 # edlist_18<-cbind(get.edgelist(G1))
-# write.csv(edlist_18_Dist,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean_DM75.csv')
+# write.csv(edlist_18_Dist,'edlist_18_Dist_V2_aboveMean_DM75.csv')
 
 
 
@@ -290,17 +284,10 @@ assortativity_degree(G11) # 0.8804902
 
 
 assortativity(G11, V(G11)$vac18, directed=F) #  0.3791135
-
-
 assortativity_nominal(G11, as.integer(as.factor(V(G11)$state), directed=F)) #  0.6866004
-
-
 assortativity(G11, V(G11)$Covid_cases, directed=F) # 0.4250071
 
-
-
 assortativity(G11, V(G11)$Edu_ass_coll, directed=F) # 0.5126844
-
 assortativity(G11, V(G11)$Income, directed=F) # 0.4958094
 
 
