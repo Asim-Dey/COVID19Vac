@@ -29,7 +29,6 @@ dataAB = pd.read_csv('dataAB.csv') # Load data
 
 
 
-#dataAB = pd.read_csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/dataAB.csv') # Load data
 
 dataAB.head()
 dataAB.shape #  (3191, 50) # So, we now have a 50-dimensional vector associated with each node in our network.
