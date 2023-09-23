@@ -24,9 +24,7 @@ import plotly.plotly as py
 ############################# Implementing the Node2vec algorithm #################################
 # N 18 and N 65 both use unweighted adjacency matrix---edlist_18_Dist_V2_aboveMean_Weight, edlist_65_Dist_V2_aboveMean_Weight
 
-data = pd.read_csv('C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/AM_65_Dist_V2_DM30.csv')
-
-data = pd.read_csv('Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/AM_65_Dist_V2_DM30.csv') # Load data
+data = pd.read_csv('AM_65_Dist_V2_DM30.csv')
 
 data.head()
 data.shape #  (3192, 3192) # Adjacency Matrix
@@ -73,10 +71,10 @@ emb_df.shape #
 ################### Save e values #########################################################################################################
  import os
  #os.getcwd()
- #os.chdir("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US")
+ #os.chdir("/COVID-19 Vaccinations in the US")
  
  
- os.chdir("Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
+ os.chdir("/TDA Clustering/")
  os.getcwd()
 
 
