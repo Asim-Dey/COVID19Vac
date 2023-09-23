@@ -15,7 +15,7 @@ library(igraph)
 
 ##################################################################
 
-setwd("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
+setwd("~/TDA Clustering/")
 
 data0 <-read.table("node2vec_65.txt", quote="\"", comment.char="")
 dim(data0) #  3192   50
@@ -196,20 +196,6 @@ summaryCPD
 summaryCPD$WBRatio = summaryCPD$WithinSumSquares/summaryCPD$BetweenSumSquares
 summaryCPD
 
-  # cutOff    WithinSumSquares   BetweenSumSquares NoOfClusters WBRatio
-
-#12 1.1105263        1061.2258          2.241935            2 473.35252
-#13 0.9842105        1061.2258          2.241935            2 473.35252
-#14 0.8578947        1061.2258          2.241935            2 473.35252
-#15 0.7315789        1061.2258          2.241935            2 473.35252
-
-#16 0.6052632        1061.2258          2.241935            2 473.35252
-#17 0.4789474         940.3871          5.016129            3 187.47267
-#18 0.3526316         939.3065         10.435484            4  90.01082
-#19 0.2263158         848.9839         57.822581           10  14.68257
-#20 0.1000000         702.0484       1716.709677           60   0.40895
-
-
 summaryCPD$WBRatio = summaryCPD$WithinSumSquares/summaryCPD$BetweenSumSquares
 
 
@@ -230,7 +216,7 @@ plot(summaryCPD$NoOfClusters,summaryCPD$WithinSumSquares)
 
 library(readr)
 #Performance_N18 <- read.table("TDA Clustering/Performance_N18.txt")
-Performance_N65 <-read.table("~/Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/Performance_N65.txt",header=TRUE)
+Performance_N65 <-read.table("Performance_N65.txt",header=TRUE)
 
 
 Performance_N65$WBRatio<-Performance_N65$WithinSumSquares/Performance_N65$BetweenSumSquares
@@ -259,11 +245,7 @@ abline(v=4, col="green", lty=2)
 data.frame(Performance_N65$cutOff,Performance_N65$WithinSumSquares,Performance_N65$BetweenSumSquares,
            Performance_N65$WBRatio, Performance_N65$NoOfClusters)
 
-
-
 #summary_CPD[summaryCPD$NoOfClusters ==4,]
-#cutOff         WithinSumSquares   BetweenSumSquares  NoOfClusters    WB-Ratio      
-# 0.10795918      91.25806452         44.096774           13       2.069495e+00
 
 ########################################################################################
 
@@ -368,10 +350,6 @@ for (c in cutoff) { # c=18
 
 
 ################################# Loop End ##################################
-
-
-
-
 colnames(kmean) <- c("WithinSumSquares","BetweenSumSquares","NoOfClusters")
 
 
@@ -387,18 +365,7 @@ plot(kmean$NoOfClusters,kmean$WBRatio, main="k-mean",cex.main=0.8,
 
 plot(kmean$NoOfClusters,kmean$WithinSumSquares)
 
- 
-#WithinSumSquares BetweenSumSquares NoOfClusters    WBRatio
-#         745.0161        39.3064516           10   18.95404
-#         754.6774        33.9354839            9   22.23859
-#         757.2581        28.8064516            8   26.28779
-#         740.3387        23.6935484            7   31.24643
 
-#         743.3548        18.8064516            6   39.52659
-#         768.1452        14.1129032            5   54.42857
-#         858.5968         9.3225806            4   92.09862
-#        1001.2581         5.4193548            3  184.75595
-#        1537.5806         0.5322581            2 2888.78788
 
 ###############################################################################
 ################ K Medoids --- Euclidian distance metrics########################
@@ -454,21 +421,6 @@ plot(ElbowPAM$NoOfClusters,ElbowPAM$WBRatio)
 plot(ElbowPAM$NoOfClusters,ElbowPAM$WBRatio, main="K-medoids (Euclidean)",cex.main=0.8,
      type='o',pch = 1,cex = .7,col='green',
      xlab="Number of cluster", ylab="WB-ratio",first.panel=grid())
-
-
-
-#   WithinSumSquares BetweenSumSquares NoOfClusters   WBRatio
-#         876.5323         28.758065           10  30.47953
-#         889.5806         25.032258            9  35.53737
-#         904.6129         20.822581            8  43.44384
-#         924.0484         17.516129            7  52.75414
-#         933.5645         14.032258            6  66.52989
-#         944.0645         10.580645            5  89.22561
-
-#         970.5484          7.693548            4 126.15094
-#         997.5968          4.774194            3 208.95608
-#        1061.2258          2.241935            2 473.35252
-
 
 
 
@@ -555,8 +507,5 @@ SS_kheir<-c(test[1],test[2],wb_ratio_heir)
 names(SS_kheir)<-c("WSS", "BSS", "WB-Ratio")
 SS_kheir
 
-# k=10
 
-#WSS        BSS   WB-Ratio 
-#119.177419  14.096774   8.454233 
 
