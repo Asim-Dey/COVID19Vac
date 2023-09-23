@@ -18,7 +18,7 @@ plot_usmap(regions = "counties") +
 library("MazamaSpatialPlots")
 
 
-data  <- read.csv("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/Cluster_18.csv")
+data  <- read.csv("Cluster_18.csv")
 head(data)
 dim(data)
 
