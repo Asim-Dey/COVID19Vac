@@ -25,7 +25,7 @@ import plotly.plotly as py
 
 ############################# Implementing the Node2vec algorithm #################################
 
-dataAB = pd.read_csv('Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/dataAB.csv') # Load data
+dataAB = pd.read_csv('dataAB.csv') # Load data
 
 
 
