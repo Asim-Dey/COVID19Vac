@@ -1,7 +1,6 @@
 
 
-
-D0<-read.csv('County_VaccinationsAA.csv')
+D0<-read.csv('C:/Users/asimi/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 head(D0)
 
 state<-unique(D0$state)
@@ -30,11 +29,11 @@ for (j in 1:m){ #j=8
 
 
 D10<-cbind(state_nm,M11)
-#write.csv(D10,'county_vex_rate_statwise18.csv')
+#write.csv(D10,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/county_vex_rate_statwise18.csv')
 
+  
 
-
-
+ 
 ############################################################################################################################################################
 ############################################################################################################################################################
 
@@ -43,7 +42,7 @@ library(factoextra)
 library(cluster)
 
 
-D11<-read.csv('county_vex_rate_statwise18.csv',header=TRUE)
+D11<-read.csv('C:/Users/asimi/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/county_vex_rate_statwise18.csv',header=TRUE)
 head(D11)
 
 

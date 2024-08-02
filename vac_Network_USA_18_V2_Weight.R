@@ -4,7 +4,9 @@ library(igraph)
 library(ggplot2)
 
 
-D0<-read.csv('County_VaccinationsAA.csv')
+D0<-read.csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+
+#D0<-read.csv('C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 
 names(D0)
 head(D0) 
@@ -26,6 +28,10 @@ boxplot1 = ggplot(D0, aes(x = state, y = covid_cases_per_100k)) + geom_boxplot()
 
 boxplot1
 
+
+
+
+###################### Distance matrix #############################
 
 
 ###################### Distance matrix #############################
@@ -131,7 +137,7 @@ dim(A1)
 dim(A2)
 dim(A3)
 
-#write.csv(A3,'edlist_18_Dist_V2_aboveMean_WeightA3.csv')
+#write.csv(A3,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean_WeightA3.csv')
 
 
 
@@ -140,6 +146,9 @@ dim(A3)
 
 
 ###################### Network ###################
+
+
+
 G0<- graph.adjacency(A1, mode="undirected",weighted=TRUE,diag=FALSE)
 
 V0<-length(V(G0));V0 # 3192
@@ -166,6 +175,6 @@ summary(W1)
 edlist_18_with_Weight<-cbind(get.edgelist(G0), W1)
 
 
-# write.csv(edlist_18_with_Weight,'edlist_18_Dist_V2_aboveMean_Weight.csv')
+# write.csv(edlist_18_with_Weight,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean_Weight.csv')
 
 

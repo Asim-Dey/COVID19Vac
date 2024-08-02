@@ -1,12 +1,21 @@
 #install.packages("igraph")
 library(igraph) 
+
 library(ggplot2)
-D0<-read.csv('County_VaccinationsAA.csv')
+
+
+D0<-read.csv('C:/Users/adey/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+
+#D0<-read.csv('C:/Users/asimi/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 
 names(D0)
 head(D0) 
 
 length(unique(D0$STATE))
+
+
+ 
+
 boxplot1 = ggplot(D0, aes(x = state, y = Series_Complete_18PlusPop_Pct)) + geom_boxplot()+ 
   #coord_cartesian(ylim = c(0,30))+
   coord_flip()
@@ -116,11 +125,12 @@ edge_density(G0, loops=F) # 0.001137677
 
 
 
-
+ 
 edlist_18_Dist<-cbind(get.edgelist(G0))
 
 # edlist_18<-cbind(get.edgelist(G1))
-# write.csv(edlist_18,'edlist_18_V2.csv')
+# write.csv(edlist_18,'C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_V2.csv')
+# write.csv(edlist_18_Dist,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean.csv')
 
 
 ############################## Motif ###############################################

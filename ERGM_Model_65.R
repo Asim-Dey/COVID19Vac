@@ -3,8 +3,10 @@
 library(igraph) 
 library(ggplot2)
 
-D0<-read.csv(County_VaccinationsAA.csv')
 
+D0<-read.csv('~/Library/CloudStorage/OneDrive-Personal/COVID-19 Vac Network//Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+#D0<-read.csv('C:/Users/adey/OneDrive/COVID-19 Vac Network//Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+#D0<-read.csv('C:/Users/asimi/OneDrive/COVID-19 Vac Network//Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 
 names(D0)
 head(D0) 
@@ -15,10 +17,10 @@ length(unique(D0$STATE))
 
 ################ 18 #####################################
 
-A0<-read.csv("edlist_65_Dist_V2_aboveMean.csv")
+A0<-read.csv("~/Library/CloudStorage/OneDrive-Personal/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_65_Dist_V2_aboveMean.csv")
 
 
-G01<-graph_from_edgelist(as.matrix(A0))
+G01<-graph_from_edgelist(as.matrix(A0), directed = FALSE)
 #plot(G01)
 
 V01<-length(V(G01));V01 # 3193
@@ -61,16 +63,16 @@ network::set.vertex.attribute(G18, "Income", D0$Median_Household_Income_2020)
 
 ###### need to change the state in D0 from character to numeric factor ###########
 
-G56_ergm <- formula(G18 ~ edges
-                    + nodemain("Income")
-                    + nodemain("Covid_cases")
-                    + nodemain("Edu_coll_higher")
+G56_ergm <- formula(G18 ~ edges                     # AIC: 224893  BIC: 224906  (Smaller is better. MC Std. Err. = 0.01524)
+                    + nodemain("Income")           # AIC: 224495  BIC: 224522  (Smaller is better. MC Std. Err. = 0.003345)
+                    + nodemain("Covid_cases")      # AIC: 224328  BIC: 224368  (Smaller is better. MC Std. Err. = 0.01086)
+                    + nodemain("Edu_coll_higher")  # AIC: 224322  BIC: 224375  (Smaller is better. MC Std. Err. = 0.03218)
                     
-                    + nodefactor("region")
-)
+                    + nodefactor("region"))        # AIC: 219567  BIC: 219661  (Smaller is better. MC Std. Err. = 0.02516)
+
 
  
-
+  
 
 set.seed(1234)
 G56_ergm <- ergm(G56_ergm,
@@ -79,16 +81,10 @@ G56_ergm <- ergm(G56_ergm,
 
 
 
-
-
-
-
-  
-G56_ergm
-
+summary(G56_ergm)
 
 anova(G56_ergm)
-summary(G56_ergm)
+
 
 
 

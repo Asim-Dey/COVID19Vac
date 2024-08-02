@@ -6,20 +6,30 @@ library(sand)
 library(ergm)
 library(statnet)
 
+ 
+
+D0<-read.csv('~/Library/CloudStorage/OneDrive-Personal/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+#D0<-read.csv('C:/Users/adey/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 
 
-D0<-read.csv('County_VaccinationsAA.csv')
+#D0<-read.csv('C:/Users/asimi/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+
 names(D0)
 head(D0) 
+
 length(unique(D0$STATE))
 
 
 
 ################ 18 #####################################
-A0<-read.csv('edlist_18_Dist_V2_aboveMean.csv')
 
 
-G01<-graph_from_edgelist(as.matrix(A0))
+#A0<-read.csv('C:/Users/adey/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean.csv')
+
+A0<-read.csv('~/Library/CloudStorage/OneDrive-Personal/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_18_Dist_V2_aboveMean.csv')
+
+
+G01<-graph_from_edgelist(as.matrix(A0), directed = FALSE)
 #plot(G01)
 
 V01<-length(V(G01));V01 # 
@@ -57,26 +67,23 @@ network::set.vertex.attribute(G18, "Income", D0$Median_Household_Income_2020)
 
 ###############################################################
 
-G18_ergm <- formula(G18 ~ edges
-                    
-                    + nodemain("Income")
-                    + nodemain("Covid_cases")
-                    + nodemain("Edu_coll_higher")
-                    + nodefactor("region")
-)
+G18_ergm <- formula(G18 ~ edges                    # AIC: 90129  BIC: 90142  (Smaller is better. MC Std. Err. = 0.05086)
+                    + nodemain("Income")           # IC: 86741  BIC: 86768  (Smaller is better. MC Std. Err. = 0.008115)
+                    + nodemain("Covid_cases")      # AIC: 86316  BIC: 86356  (Smaller is better. MC Std. Err. = 0.01157)
+                    + nodemain("Edu_coll_higher")  # AIC: 85896  BIC: 85950  (Smaller is better. MC Std. Err. = 0.01053)
+                    + nodefactor("region"))        # AIC: 84248  BIC: 84342  (Smaller is better. MC Std. Err. = 0.02465)
+                                                 
 
 
+  
 set.seed(1234)
 G18_ergm.fit <- ergm(G18_ergm,
-                     control = control.ergm(seed=135,force.main=TRUE,MCMC.samplesize=1000)
-)
+                     control = control.ergm(seed=135,force.main=TRUE,MCMC.samplesize=1000))
 
 G18_ergm.fit
-
-
-anova(G18_ergm.fit)
 summary(G18_ergm.fit)
 
+anova(G18_ergm.fit)
 
 ################## mcmc.diagnostics #################################
 
@@ -84,6 +91,9 @@ mcmc.diagnostics(G18_ergm.fit)
 
 
 gof1<-gof(G18_ergm.fit, GOF=~model)
+plot(gof1)
+
+gof1<-gof(G18_ergm.fit, plotlogodds=TRUE)
 plot(gof1)
 
 
