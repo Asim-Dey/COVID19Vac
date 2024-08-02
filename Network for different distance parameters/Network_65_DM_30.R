@@ -4,7 +4,9 @@ library(igraph)
 library(ggplot2)
 
 
-D0<-read.csv('County_VaccinationsAA.csv')
+D0<-read.csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+
+#D0<-read.csv('C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 
 names(D0)
 head(D0) 
@@ -101,7 +103,7 @@ dim(A1)
 dim(A2)
 
 ### AM- Adjacency Matrix  for nodetvec ################
-#write.csv(A2,'AM_65_Dist_V2_DM30.csv')
+#write.csv(A2,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/AM_65_Dist_V2_DM30.csv')
 
 
 ###################### Network ###################
@@ -127,7 +129,7 @@ edlist_65_Dist<-cbind(get.edgelist(G0))
 
 #edlist_65<-cbind(get.edgelist(G1))
 
-#write.csv(edlist_65_Dist,'edlist_65_Dist_V2_aboveMean_DM30.csv')
+#write.csv(edlist_65_Dist,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_65_Dist_V2_aboveMean_DM30.csv')
 
 
 
@@ -245,10 +247,18 @@ Diameter<-diameter(G0) ;Diameter # 90
 #################### Assortativity and homophily ###########################
 
 assortativity_degree(G11)  #  0.8993289
+
 assortativity(G11, V(G11)$vac18, directed=F) #  0.5866623
+
+
 assortativity_nominal(G11, as.integer(as.factor(V(G11)$state), directed=F)) #  0.84711
+
+
 assortativity(G11, V(G11)$Covid_cases, directed=F) # 0.4694446
+
+
 assortativity(G11, V(G11)$Edu_ass_coll, directed=F) # 0.5802426
+
 assortativity(G11, V(G11)$Income, directed=F) # 0.62794
 
 

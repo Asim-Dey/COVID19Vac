@@ -4,7 +4,9 @@ library(igraph)
 library(ggplot2)
 
 
-D0<-read.csv('County_VaccinationsAA.csv')
+D0<-read.csv('C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
+
+#D0<-read.csv('C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/County_VaccinationsAA.csv')
 
 names(D0)
 head(D0) 
@@ -102,7 +104,7 @@ dim(A2)
 
 
 ### AM- Adjacency Matrix  for nodetvec ################
-#write.csv(A2,'AM_65_Dist_V2_DM75.csv')
+#write.csv(A2,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/AM_65_Dist_V2_DM75.csv')
 
 
 
@@ -133,7 +135,7 @@ edlist_65_Dist<-cbind(get.edgelist(G0))
 #edlist_65<-cbind(get.edgelist(G1))
 
 
-#write.csv(edlist_65_Dist,'edlist_65_Dist_V2_aboveMean_DM75.csv')
+#write.csv(edlist_65_Dist,'C:/Users/adey/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_65_Dist_V2_aboveMean_DM75.csv')
 
 
 
