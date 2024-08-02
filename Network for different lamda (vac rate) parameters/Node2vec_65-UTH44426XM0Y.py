@@ -1,0 +1,105 @@
+
+import pandas as pd
+import numpy as np
+import networkx as nx
+import matplotlib.pyplot as plt
+
+
+
+from node2vec import Node2Vec
+from sklearn.cluster import KMeans
+from sklearn import cluster
+from sklearn import metrics
+
+
+
+
+import plotly
+plotly.tools.set_credentials_file(username='moniyuv', api_key='w2NBdksdtxziaW5GHpbG')
+import plotly.plotly as py
+
+
+
+
+############################# Implementing the Node2vec algorithm #################################
+# N 18 and N 65 both use unweighted adjacency matrix---edlist_18_Dist_V2_aboveMean_Weight, edlist_65_Dist_V2_aboveMean_Weight
+
+data = pd.read_csv('Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/AM_65_Dist_V2_DM30.csv') # Load data
+
+data.head()
+data.shape #  (3192, 3192) # Adjacency Matrix
+
+
+A=np.matrix(data)
+A.shape  # (3192, 3192)
+
+
+# Create a graph
+G=nx.from_numpy_matrix(A)
+
+G.number_of_nodes() # 3192
+
+####################################################################################################################################
+
+# Precompute probabilities and generate walks - **ON WINDOWS ONLY WORKS WITH workers=1**
+#node2vec = Node2Vec(G, dimensions=50, walk_length=50, num_walks=200, weight_key="V3")
+
+#node2vec = Node2Vec(G, dimensions=50, walk_length=50, num_walks=200)
+
+
+node2vec = Node2Vec(G, dimensions=20, walk_length=5, num_walks=10, workers=1)  # Use temp_folder for big graphs
+
+#n2v_obj = Node2Vec(KG, dimensions=10, walk_length=5, num_walks=10, p=1, q=1, workers=1)
+#node2vec = Node2Vec(graph, dimensions=20, walk_length=16, num_walks=100)# Reformat position nodes
+
+
+
+
+# Embed nodes
+model = node2vec.fit(window=10, min_count=1, batch_words=4)  # Any keywords acceptable by gensim.Word2Vec can be passed, `dimensions` and `workers` are automatically passed (from the Node2Vec constructor)
+
+
+########################################################################################################################################
+
+
+emb_df = (
+    pd.DataFrame(
+        [model.wv.get_vector(str(n)) for n in G.nodes()],
+        index = G.nodes
+    )
+)
+
+
+ 
+emb_df.shape # 
+
+
+################### Save e values #########################################################################################################
+ import os
+ #os.getcwd()
+ #os.chdir("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US")
+ 
+ 
+ os.chdir("Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
+ os.getcwd()
+
+
+ ##### matrix in a text file ##########################
+ 
+ # matrix in a text file
+  mat = np.matrix(emb_df)
+  with open('node2vec_65.txt','a') as f:
+   for line in mat:
+    np.savetxt(f, line, fmt='%.2f')
+        
+
+
+
+     
+
+
+
+
+
+
+
