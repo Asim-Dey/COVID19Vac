@@ -5,10 +5,14 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
+
 from node2vec import Node2Vec
 from sklearn.cluster import KMeans
 from sklearn import cluster
 from sklearn import metrics
+
+
+
 
 import plotly
 plotly.tools.set_credentials_file(username='moniyuv', api_key='w2NBdksdtxziaW5GHpbG')
@@ -20,7 +24,7 @@ import plotly.plotly as py
 ############################# Implementing the Node2vec algorithm #################################
 # N 18 and N 65 both use unweighted adjacency matrix---edlist_18_Dist_V2_aboveMean_Weight, edlist_65_Dist_V2_aboveMean_Weight
 
-data = pd.read_csv('edlist_65_Dist_V2_aboveMean_WeightA3.csv') # Load data
+data = pd.read_csv('Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/edlist_65_Dist_V2_aboveMean_WeightA3.csv') # Load data
 
 data.head()
 data.shape #  (3192, 3192) # Adjacency Matrix
@@ -67,10 +71,10 @@ emb_df.shape #
 ################### Save e values #########################################################################################################
  import os
  #os.getcwd()
- #os.chdir("COVID-19 Vaccinations in the US")
+ #os.chdir("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US")
  
  
- os.chdir("~/TDA Clustering/")
+ os.chdir("Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
  os.getcwd()
 
 

@@ -1,3 +1,7 @@
+
+
+
+
 #install.packages("usmap")
 library(usmap) #import the package
 library(ggplot2) #use ggplot2 to add layer for visualization
@@ -14,7 +18,7 @@ plot_usmap(regions = "counties") +
 library("MazamaSpatialPlots")
 
 
-data  <- read.csv("cluster_member_TDA_18_30DM.csv")
+data  <- read.csv("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/Data/COVID-19 Vaccinations in the US/cluster_member_TDA_18_30DM.csv")
 head(data)
 dim(data)
 

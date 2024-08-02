@@ -4,7 +4,7 @@ library(dplyr)
 library(partykit)
 library(ggplot2)
 library(plyr)
-library(cluster)
+library(cluster)  
 library(NbClust)
 library(factoextra)
 library(purrr)
@@ -12,10 +12,12 @@ library(purrr)
 library(cluster)
 library(TDA)
 library(igraph)
+
+
 ##################################################################
 
-
-setwd("~/TDA Clustering/")
+setwd("C:/Users/adey/OneDrive/COVID-19 Vac Network/Data and Code/R Codes/TDA Clustering/")
+setwd("~/Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
 
 
 data0 <-read.table("node2vec_18.txt", quote="\"", comment.char="")
@@ -27,7 +29,7 @@ dim(data0) #  3192   50
 # So, we now have a 50-dimensional vector associated with each node 
 # in our network
 
-data <- as.matrix(dist(data0))
+data <- as.matrix(dist(data0))  # matrix of pairwise distance 
 
 
 #summary(as.numeric(data))
@@ -104,6 +106,7 @@ for (i in 1:nodes){ #i=1
 
 
 ###########################################################################################
+
 wasser_dist_2 = matrix(0,nodes,nodes)
 
 for(i in 1:nodes){
@@ -114,10 +117,23 @@ for(i in 1:nodes){
 }
 
 
+
+
+dim(wasser_dist_2) # 3192 3192
+
 # summary(as.vector(wasser_dist_2))
 # Min.   1st Qu.  Median    Mean     3rd Qu.    Max. 
 # 0.000   0.000   1.355    1.197     2.194   2.645 
 
+
+
+#write.csv(wasser_dist_2,'C:/Users/adey/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/wasser_dist_2_18_d50_V1.csv')
+
+
+wasser_dist_2<-read.csv('~/Library/CloudStorage/OneDrive-Personal/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/wasser_dist_2_18_d50_V1.csv',header=FALSE)
+wasser_dist_2<-read.csv('C:/Users/adey/OneDrive/COVID-19 Vac Network/Data and Code/Data/COVID-19 Vaccinations in the US/wasser_dist_2_18_d50_V1.csv',header=FALSE)
+head(wasser_dist_2)
+dim(wasser_dist_2)
 
 ############################################################################################
 
@@ -196,6 +212,27 @@ summaryCPD=summary_CPD
 colnames(summaryCPD) <- c("cutOff","WithinSumSquares","BetweenSumSquares","NoOfClusters")
 summaryCPD
 
+#    cutOff WithinSumSquares BetweenSumSquares NoOfClusters
+
+#10    1.1        3120.7258          0.000000            1
+#11    1.0        3120.7258          0.000000            1
+#12    0.9        3120.7258          0.000000            1
+#13    0.8        3120.7258          0.000000            1
+#14    0.7        3120.7258          0.000000            1
+#15    0.6        3120.7258          0.000000            1
+#16    0.5         689.8548          5.000000            3
+#17    0.4         678.1452          8.241935            4
+#18    0.3         676.5161         18.806452            6
+#19    0.2         495.9677        118.967742           15
+#20    0.1         318.7903       3035.225806           83
+
+ 
+# WB-rartio for k=4
+# 678.1452/8.241935=82.27985
+
+
+
+ 
 summaryCPD$WBRatio = summaryCPD$WithinSumSquares/summaryCPD$BetweenSumSquares
 
 
@@ -214,7 +251,7 @@ plot(summaryCPD$NoOfClusters,summaryCPD$WithinSumSquares)
 
 
 library(readr)
-Performance_N18 <- read.table("~/Performance_N18.txt",header=TRUE)
+Performance_N18 <- read.table("~/Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/Performance_N18.txt",header=TRUE)
 Performance_N18
 
 Performance_N18$WBRatio<-Performance_N18$WithinSumSquares/Performance_N18$BetweenSumSquares
@@ -252,6 +289,8 @@ data.frame(Performance_N18$cutOff,Performance_N18$WithinSumSquares,Performance_N
 
 
 #summary_CPD[summaryCPD$NoOfClusters ==4,]
+#cutOff         WithinSumSquares   BetweenSumSquares  NoOfClusters    WB-Ratio      
+# 0.10795918      91.25806452         44.096774           13       2.069495e+00
 
 ########################################################################################
 
@@ -272,6 +311,8 @@ clstrs_CPD=clusters(g)  # clusters are strongly connected components of adj. mat
 
 
 cluster_member_CPD<-clstrs$clstrs_CPD
+
+
 #write.csv(cluster_member,"cluster_member_TDA_18.csv")
 
 
@@ -298,7 +339,7 @@ cluster_member_CPD<-clstrs$clstrs_CPD
 #Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #0.0000  0.1371  3.9669  3.2006  4.5080  8.5873 
 
-
+data<-wasser_dist_2
 
 fviz_nbclust(scale(data), FUN = kmeans, method = "wss",k.max=20)
 
@@ -358,7 +399,13 @@ for (c in cutoff) { # c=18
 
 
 ################################# Loop End ##################################
+
+
+
+
 colnames(kmean) <- c("WithinSumSquares","BetweenSumSquares","NoOfClusters")
+
+
 kmean$WBRatio = kmean$WithinSumSquares/kmean$BetweenSumSquares
 
 
@@ -372,9 +419,20 @@ plot(kmean$NoOfClusters,kmean$WBRatio, main="k-mean",cex.main=0.8,
 plot(kmean$NoOfClusters,kmean$WithinSumSquares)
 
 
+#WithinSumSquares BetweenSumSquares NoOfClusters    WBRatio
+#         574.5968         58.790323           10   9.773663
+#         510.5806         45.951613            9  11.111267
+#         572.3710         36.693548            8  15.598681
+#         587.4839         27.419355            7  21.425882
+#         572.3710         19.661290            6  29.111567
+#         587.4839         13.000000            5  45.191067
+#         743.0323          8.612903            4  86.269663
+#         713.8871          5.000000            3 142.777419
+#         858.1935          2.193548            2 391.235294
+
 
 ###############################################################################
-################ K Medoids --- Euclidian distance metrics########################
+################ K Medoids --- Euclidian distance metrics ########################
 
 
 
@@ -429,83 +487,145 @@ plot(ElbowPAM$NoOfClusters,ElbowPAM$WBRatio, main="K-medoids (Euclidean)",cex.ma
      xlab="Number of cluster", ylab="WB-ratio",first.panel=grid())
 
 
-###############################################################################
-################### Hierarchical Clustering ###################################
 
-fviz_nbclust(data, FUN = hcut, method = "wss",k.max=20)
+#WithinSumSquares BetweenSumSquares NoOfClusters   WBRatio
+#         767.8226         36.854839           10  20.83370
+#         773.3065         30.774194            9  25.12841
+#         778.1774         25.758065            8  30.21102
+#         791.9516         19.032258            7  41.61102
+#         810.9839         14.403226            6  56.30571
+#         825.8871         10.629032            5  77.70106
+#         833.9355          7.322581            4 113.88546
+#         840.4677          4.564516            3 184.13074
+#         858.1935          2.193548            2 391.23529
 
-model2 <- hclust(scale(data))
-plot(model2)
 
-# function to compute average silhouette for k clusters
-avg_sil <- function(k) {
-  heir.res <- hclust(data)
-  clust_heir <- cutree(heir.res,k=k)
-  ss <- cluster::silhouette(clust_heir, dist(data))
-  mean(ss[, 3])
+
+
+
+
+
+
+
+
+###############################################################################################
+############################# Spectral Clustering #########################################
+
+nm=4
+
+data<-wasser_dist_2
+#data <- as.matrix(dist(data0))
+
+
+S <- wasser_dist_2
+dim(S)
+
+## Create Degree matrix
+D <- matrix(0, nrow=nrow(data), ncol = nrow(data)) # empty nxn matrix
+
+for (i in 1:nrow(data)) {
+  
+  # Find top 10 nearest neighbors using Euclidean distance
+  index <- order(S[i,])[2:11]
+  
+  # Assign value to neighbors
+  D[i,][index] <- 1 
+  
+  print(i)
 }
 
+# find mutual neighbors
+D = D + t(D) 
+D[ D == 2 ] = 1
 
-k.values <- 2:20
+# find degrees of vertices
+degrees = colSums(D) 
+n = nrow(D)
 
-# extract avg silhouette for 2-15 clusters
-avg_sil_values1 <- map_dbl(k.values, avg_sil)
-
-
-plot(k.values, avg_sil_values1,
-     type = "b", pch = 19, frame = FALSE, 
-     xlab = "Number of clusters K",
-     ylab = "Average Silhouettes")
+## Compute Laplacian matrix
+# Since k > 2 clusters (3), we normalize the Laplacian matrix:
+laplacian = ( diag(n) - diag(degrees^(-1/2)) %*% D %*% diag(degrees^(-1/2)) )
+dim(laplacian)
 
 
 
-k_hc=10 # 10
+## Compute eigenvectors
+eigenvectors = eigen(laplacian, symmetric = TRUE)
+n = nrow(laplacian)
+eigenvectors = eigenvectors$vectors[,(n - 2):(n - 1)]
 
-clust_heir <- cutree(model2,k=k_hc)  # based on Eulidian Distance
-rect.hclust(model2, k = k_hc, border = 2:k_hc)
 
-cluster_size_heir <- table(clust_heir)
-center_heir =c()
-total_wss_heir = 0
-test = c()
+set.seed(1748)
+## Run Kmeans on eigenvectors
+sc = kmeans(eigenvectors, nm)
+sc
 
-for(i in 1:length(cluster_size_heir))
-{
-  if(cluster_size_heir[i] > 1)
-  {
-    indices <- which(clust_heir == i,arr.ind = T) ## all the indices in the cluster
+## Pull clustering results
+sc_results = cbind(data, cluster = as.factor(sc$cluster))
+head(sc_results)
+
+
+
+
+################ SS ####################################################
+
+SC2 <- data.frame(WithinSumSquares= double(),
+                    BetweenSumSquares= double(),
+                    NoOfClusters = integer())
+
+
+test =c()
+
+
+################################# Loop Start ##################################
+
+
+  
+ c<-4
+  center =c()
+  total_wss = 0
+  
+  for(i in 1:c){ # i=1
+    
+    
+    indices <- which(sc$cluster == i,arr.ind = T) ## all the indices in the cluster
     wasser_0 <- wasser_dist_2[indices,indices] #subset dataset for those points
     index <- which.min(rowSums(wasser_0)) # find centroid of the cluster
     point_0 <- indices[index] #put centroid in point_0
     wss <- sum((wasser_0[index,])^2)
     wss <- min(rowSums(wasser_dist_2[indices,indices]))
+    #print(wss)
+    center <- c(center,point_0)
+    #print(center)
+    total_wss = total_wss + wss
     
   }
-  else
-  {
-    point_0 <- which(clust_heir == i,arr.ind = T)
-    wss <- 0
-    
-  }
-  center_heir <- c(center_heir,point_0)
-  total_wss_heir = total_wss_heir + wss
-  print(i)
-}
-
-wasser_cen_heir <- wasser_dist_2[center_heir,center_heir]
-total_bss_heir = sum(wasser_cen_heir)/2
-
-test <- c(total_wss_heir,total_bss_heir)
-#test <- c(cutoff_2,avg_sil,clstrs$no)
-print(test)
-#summary <- rbind(test,summary)
-wb_ratio_heir <- test[1]/test[2]
-#wb_ratio_heir
+   
+  
+  
+  wasser_cen <- wasser_dist_2[center,center]
+  total_bss = sum(wasser_cen)/2
+  
+  test <- c(total_wss,total_bss,c)
+  SC2 <- rbind(test,SC2)
 
 
 
-SS_kheir<-c(test[1],test[2],wb_ratio_heir)
-names(SS_kheir)<-c("WSS", "BSS", "WB-Ratio")
-SS_kheir
+################################# Loop End ##################################
+
+
+
+
+colnames(SC2) <- c("WithinSumSquares","BetweenSumSquares","NoOfClusters")
+SC2$WBRatio = SC2$WithinSumSquares/SC2$BetweenSumSquares
+
+
+SC2
+
+# WithinSumSquares BetweenSumSquares   NoOfClusters  WBRatio
+#     858.1935          6.580645            4      130.4118
+
+
+
 
 

@@ -13,8 +13,9 @@ library(cluster)
 library(TDA)
 library(igraph)
 ##################################################################
+#setwd("~/Library/CloudStorage/OneDrive-Personal/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
 
-setwd("/TDA Clustering/")
+setwd("C:/Users/asimi/OneDrive/Mixed Effect Model/Data and Code/R Codes/TDA Clustering/")
 
 data0 <-read.table("node2vec_18_DM30.txt", quote="\"", comment.char="")
 dim(data0) #  3192   50
@@ -194,6 +195,27 @@ summaryCPD=summary_CPD
 colnames(summaryCPD) <- c("cutOff","WithinSumSquares","BetweenSumSquares","NoOfClusters")
 summaryCPD
 
+cutOff WithinSumSquares BetweenSumSquares NoOfClusters
+1  1.5000000         821.1129          7.193548            2
+2  1.4263158         821.1129          7.193548            2
+3  1.3526316         821.1129          7.193548            2
+4  1.2789474         821.1129          7.193548            2
+5  1.2052632         821.1129          7.193548            2
+6  1.1315789         821.1129          7.193548            2
+7  1.0578947         821.1129          7.193548            2
+8  0.9842105         821.1129          7.193548            2
+9  0.9105263         821.1129          7.193548            2
+10 0.8368421         821.1129          7.193548            2
+11 0.7631579         821.1129          7.193548            2
+12 0.6894737         821.1129          7.193548            2
+13 0.6157895         821.1129          7.193548            2
+14 0.5421053         821.1129          7.193548            2
+15 0.4684211         558.2258         30.161290            4
+16 0.3947368         558.2258         30.161290            4
+17 0.3210526         558.2258         30.161290            4
+18 0.2473684         558.2258         30.161290            4
+19 0.1736842         557.6774         45.838710            5
+20 0.1000000         541.8710        455.967742           23
 
 
 summaryCPD$WBRatio = summaryCPD$WithinSumSquares/summaryCPD$BetweenSumSquares
@@ -213,7 +235,16 @@ plot(summaryCPD$NoOfClusters,summaryCPD$WithinSumSquares)
 #plot(summaryCPD$NoOfClusters,summaryCPD$cutOff)
 
 
+
+
+
+
+
+
 #summary_CPD[summaryCPD$NoOfClusters ==4,]
+#cutOff         WithinSumSquares   BetweenSumSquares  NoOfClusters    WB-Ratio      
+# 0.10795918      91.25806452         44.096774           13       2.069495e+00
+
 ########################################################################################
 
 cutoff_A = 0.47
@@ -230,7 +261,10 @@ for (i in 1:nodes)  {
 g=graph_from_adjacency_matrix(A,"directed") # form a graph from adj. matrix A
 clstrs_CPD=clusters(g)  # clusters are strongly connected components of adj. matrix A
 
+
+
 cluster_member_CPD<-clstrs_CPD$membership
+
 
 write.csv(cluster_member_CPD,"cluster_member_TDA_18_30DM.csv")
 
@@ -338,6 +372,18 @@ plot(kmean$NoOfClusters,kmean$WBRatio, main="k-mean",cex.main=0.8,
 plot(kmean$NoOfClusters,kmean$WithinSumSquares)
 
 
+#WithinSumSquares BetweenSumSquares NoOfClusters    WBRatio
+#         574.5968         58.790323           10   9.773663
+#         510.5806         45.951613            9  11.111267
+#         572.3710         36.693548            8  15.598681
+#         587.4839         27.419355            7  21.425882
+#         572.3710         19.661290            6  29.111567
+#         587.4839         13.000000            5  45.191067
+#         743.0323          8.612903            4  86.269663
+#         713.8871          5.000000            3 142.777419
+#         858.1935          2.193548            2 391.235294
+
+
 ###############################################################################
 ################ K Medoids --- Euclidian distance metrics########################
 
@@ -392,6 +438,26 @@ plot(ElbowPAM$NoOfClusters,ElbowPAM$WBRatio)
 plot(ElbowPAM$NoOfClusters,ElbowPAM$WBRatio, main="K-medoids (Euclidean)",cex.main=0.8,
      type='o',pch = 1,cex = .7,col='green',
      xlab="Number of cluster", ylab="WB-ratio",first.panel=grid())
+
+
+
+#WithinSumSquares BetweenSumSquares NoOfClusters   WBRatio
+#         767.8226         36.854839           10  20.83370
+#         773.3065         30.774194            9  25.12841
+#         778.1774         25.758065            8  30.21102
+#         791.9516         19.032258            7  41.61102
+#         810.9839         14.403226            6  56.30571
+#         825.8871         10.629032            5  77.70106
+#         833.9355          7.322581            4 113.88546
+#         840.4677          4.564516            3 184.13074
+#         858.1935          2.193548            2 391.23529
+
+
+
+
+
+
+
 
 
 
@@ -473,3 +539,9 @@ wb_ratio_heir <- test[1]/test[2]
 SS_kheir<-c(test[1],test[2],wb_ratio_heir)
 names(SS_kheir)<-c("WSS", "BSS", "WB-Ratio")
 SS_kheir
+
+# k=10
+
+#WSS        BSS   WB-Ratio 
+#119.177419  14.096774   8.454233 
+
